@@ -1,0 +1,416 @@
+
+<html>
+  <head>
+    <title>Krusty Krab Dashboard</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
+    <!-- Main styles for this application-->
+    <link href="css/style.css" rel="stylesheet">
+    <script src="https://momentjs.com/downloads/moment-with-locales.js"></script>
+    
+  </head>
+  <body class="app header-fixed sidebar-fixed aside-menu-fixed sidebar-lg-show">
+    <header class="app-header navbar">
+        Krusty Krab Sale Charts
+    </header>
+    <div class="app-body">
+      <div class="sidebar">
+        <nav class="sidebar-nav">
+          <ul class="nav">
+            <li class="nav-item">
+              <a class="nav-link">
+                <i class="nav-icon icon-speedometer"></i> Dashboard
+              </a>
+            </li>
+            <li class="nav-title">Components</li>
+            <li class="nav-item">
+              <a class="nav-link" href="datatable.html">
+                <i class="nav-icon icon-drop"></i> Table</a>
+            </li>
+             <li class="nav-item">
+              <a class="nav-link" href="dashboard.html">
+                <i class="nav-icon icon-pie-chart"></i> Charts</a>
+            </li>
+                <li class="nav-item">
+              <a class="nav-link" href="upload.html">
+                <i class="nav-icon icon-pie-chart"></i> Upload</a>
+            </li>
+               <li class="nav-item-logout">
+              <a class="nav-link" href="index.html">
+                <i class="nav-icon icon-pie-chart"></i> Logout</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+      <main class="main">
+
+        <div class="container-fluid">
+          <div class="animated fadeIn">
+            <div class="card-columns cols-2">
+              <div class="card">
+                <div class="card-header">Burger Sales
+                  <div class="card-header-actions">
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div class="chart-wrapper">
+                    <canvas id="canvas-1"></canvas>
+                  </div>
+                </div>
+              </div>
+              <div class="card">
+                <div class="card-header">Species Sales
+                  <div class="card-header-actions">
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div class="chart-wrapper">
+                    <canvas id="canvas-2"></canvas>
+                  </div>
+                </div>
+              </div>
+              <div class="card">
+                <div class="card-header">Per Species
+                  <div class="card-header-actions">
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div class="chart-wrapper">
+                    <canvas id="canvas-3"></canvas>
+                  </div>
+                </div>
+              </div>
+              <div class="card">
+                <div class="card-header">By Day
+                  <div class="card-header-actions">
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div class="chart-wrapper">
+                    <canvas id="canvas-4"></canvas>
+                  </div>
+                </div>
+              </div>
+            <div class="card">
+                <div class="card-header">By Time
+                  <div class="card-header-actions">
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div class="chart-wrapper">
+                    <canvas id="canvas-5"></canvas>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+      <aside class="aside-menu">
+        <ul class="nav nav-tabs" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" href="#timeline" role="tab">
+              <i class="icon-list"></i>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#messages" role="tab">
+              <i class="icon-speech"></i>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#settings" role="tab">
+              <i class="icon-settings"></i>
+            </a>
+          </li>
+        </ul>
+        
+      </aside>
+    </div>
+    <footer class="app-footer">
+      <div>
+        <a>Krusty Krab</a>
+      </div>
+      <div class="ml-auto">
+        <span>Powered by</span>
+        <a>CHUA X LANDRITO</a>
+      </div>
+    </footer>
+    <script src="node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="node_modules/popper.js/dist/umd/popper.min.js"></script>
+    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="node_modules/pace-progress/pace.min.js"></script>
+    <script src="node_modules/perfect-scrollbar/dist/perfect-scrollbar.min.js"></script>
+    <script src="node_modules/@coreui/coreui/dist/js/coreui.min.js"></script>
+    <!-- Plugins and scripts required by this view-->
+    <script src="node_modules/chart.js/dist/Chart.min.js"></script>
+    <script src="node_modules/@coreui/coreui-plugin-chartjs-custom-tooltips/dist/js/custom-tooltips.min.js"></script>
+    <script src="js/charts.js"></script>
+  </body>
+</html>
+   <script>
+    // JSON link: "https://api.npoint.io/8f849f5dc338b6648648"
+                var labels = [];
+                var data = [];
+                
+                //burger_sales CHART
+                $.getJSON("https://api.npoint.io/8f849f5dc338b6648648", function (json) {
+                    
+                    // For each item in your object
+                    for (var key in json.burger_sales) {
+                        if (json.burger_sales.hasOwnProperty(key)) {
+                            labels.push(key);
+                            data.push(json.burger_sales[key]);
+                        }
+                    }
+                    
+                });
+                
+                   var ctx = document.getElementById('canvas-1').getContext('2d');
+                   var chart = new Chart(ctx, {
+                      type: 'line',
+                      data: {
+                         labels: labels,
+                         datasets: [{
+                            label: "Number of Orders",
+                            backgroundColor: 'rgb(0, 220, 222)',
+                            borderColor: 'rgb(0, 198, 222)',
+                            data: data
+                         }]
+                      },
+                      options: {
+                         responsive: 'true',
+                      }
+                   });
+</script>
+ <script>
+                var labels1 = [];
+                var data1 = [];
+                
+                //species_sales CHART
+                $.getJSON("https://api.npoint.io/8f849f5dc338b6648648", function (json) {
+                    
+                    // For each item in your object
+                    for (var key in json.species_sales) {
+                        if (json.species_sales.hasOwnProperty(key)) {
+                            labels1.push(key);
+                            data1.push(json.species_sales[key]);
+                        }
+                    }
+                    
+                });
+                
+                   var ctx = document.getElementById('canvas-2').getContext('2d');
+                   var chart1 = new Chart(ctx, {
+                      type: 'line',
+                      data: {
+                         labels: labels1,
+                         datasets: [{
+                            label: "Number of Burgers bought",
+                            backgroundColor: 'rgb(129, 198, 0)',
+                            borderColor: 'rgb(0, 150, 0)',
+                            data: data1
+                         }]
+                      },
+                      options: {
+                         responsive: 'true',
+                      }
+                   });
+            </script>
+
+            <script>
+                var labels2 = [];
+                var d2kc = [];
+                var d2kp = [];
+                var d2kd = [];
+                
+                //burger_by_species CHART
+                $.getJSON("https://api.npoint.io/8f849f5dc338b6648648", function (json) {
+                    
+                    // For each item in your object
+                    for (var key in json.burger_by_species["Krusty Combo"]) {
+                        if (json.burger_by_species["Krusty Combo"].hasOwnProperty(key)) {
+                            labels2.push(key);
+                            d2kc.push(json.burger_by_species["Krusty Combo"][key]);
+                        }
+                    }
+                    
+                    for (var key in json.burger_by_species["Krabby Pattie"]) {
+                        if (json.burger_by_species["Krabby Pattie"].hasOwnProperty(key)) {
+                            d2kp.push(json.burger_by_species["Krabby Pattie"][key]);
+                        }
+                    }
+                    
+                    for (var key in json.burger_by_species["Krusty Deluxe"]) {
+                        if (json.burger_by_species["Krusty Deluxe"].hasOwnProperty(key)) {
+                            d2kd.push(json.burger_by_species["Krusty Deluxe"][key]);
+                        }
+                    }
+                    
+                });
+                
+                   var ctx = document.getElementById('canvas-3').getContext('2d');
+                   var chart2 = new Chart(ctx, {
+                      type: 'line',
+                      data: {
+                         labels: labels2,
+                         datasets: [
+                             {
+                            label:'Krusty Combo',
+                            borderColor: 'rgb(0, 150, 0)',
+                            data: d2kc 
+                             },
+                                   
+                            {
+                            label:'Krabby Pattie',
+                            borderColor: 'Red',
+                            data: d2kp
+                            },
+                             
+                            {
+                            label:'Krusty Deluxe',
+                            borderColor: 'Blue',
+                            data: d2kd
+                            }
+                                   ]
+                      },
+                      options: {
+                         responsive: 'true',
+                      }
+                   });
+            </script>
+        
+
+    <script>
+            //Sales, DAY CHART
+            var obj;
+            $.getJSON('https://api.npoint.io/8f849f5dc338b6648648', function(json){
+                extract(json);
+            });
+
+            function extract(data){
+                var i = 0, j =0, test=0;
+                var count = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+                var dLabel = [];
+                
+                obj = data.sales;
+               
+                console.log(obj.length);
+                var oldDate, newDate;
+
+                for(i = 0; i < obj.length; i++){
+                    if(i == 0){
+                        oldDate = moment(obj[i].datetime);
+                        console.log(oldDate);       
+                        count[j]++;
+                        dLabel[j] = oldDate.toString().slice(0,15);
+                    }
+                    else{
+                        newDate = moment(obj[i].datetime);
+                        if(moment(oldDate).isSame(newDate, 'day')){ 
+                            count[j]++;
+                        }
+                        else{
+                            j++;
+                            oldDate = newDate;
+                            count[j]++;
+                            dLabel[j] = oldDate.toString().slice(0,15);
+                        }
+            
+                        }                   
+                }
+                console.log(count);
+                console.log(dLabel);
+
+                var ctx = document.getElementById('canvas-4').getContext('2d');
+                var chart3 = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: dLabel,
+                    datasets: [{
+                    label: 'Number of Orders',
+                    data: count,
+                    backgroundColor: 'rgb(255, 195, 77,0.2)',
+                    borderColor: 'rgb(255, 195, 77,1)',
+                    borderWidth: 1
+                    }]
+                }
+                });
+            }
+        </script>
+        
+<script>
+            //Sales, HOUR CHART
+            var obj2;
+            $.getJSON('https://api.npoint.io/8f849f5dc338b6648648', function(json){
+                extract2(json);
+            });
+
+            function extract2(data){
+                var i = 0, j =0, test=0;
+                var count = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+                var dLabel = [];
+                
+                obj2 = data.sales;
+               
+                console.log(obj2.length);
+                var oldDate, newDate;
+
+                for(i = 0; i < obj2.length; i++){
+                    if(i == 0){
+                        oldDate = moment(obj2[i].datetime);
+                        console.log(oldDate);       
+                        count[j]++;
+                        dLabel[j] = oldDate.toString().slice(16,18);
+                    }
+                    else{
+                        newDate = moment(obj2[i].datetime);
+                        if(moment(oldDate).isSame(newDate, 'day')){
+                            if(moment(oldDate).isSame(newDate, 'hour')){
+                            count[j]++;
+                            }
+                            else{
+                            j++;
+                            oldDate = newDate;
+                            count[j]++;
+                            dLabel[j] = oldDate.toString().slice(16,18);
+                        }
+                        }
+                        else{
+                            j=0;
+                            count[j]++;
+                            oldDate = newDate;
+                        }
+                        }                   
+                }
+                console.log(count);
+                console.log(dLabel);
+
+                var ctx = document.getElementById('canvas-5').getContext('2d');
+                var chart4 = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: dLabel,
+                    datasets: [{
+                    label: 'Number of Orders',
+                    data: count,
+                    backgroundColor: 'rgb(255, 255, 102,0.3)',
+                    borderColor: 'rgb(255, 255, 50)',
+                    borderWidth: 1
+                    }]
+                }
+                });
+            }
+        </script>
+
+<script>
+                setInterval(function(){
+                    chart.update();
+                    chart1.update();
+                    chart2.update();
+                    chart3.update();
+                    chart4.update();
+                     }, 1000);
+                </script>
+            
+ 

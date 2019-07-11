@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+<div class="login-box">
+  <h1 class="logintext">Login</h1>
+  <div class="textbox">
+    <i class="fas fa-user"></i>
+    <input type="text" id="user" placeholder="Username">
+  </div>
+      
+  <div class="textbox">
+    <i class="fas fa-lock"></i>
+    <input type="password" id="pass" placeholder="Password">
+  </div>
+    <input type="button"  class="btn" value="Sign in" onclick="validate()">
+    </div>
+  </body>
+    <script>
+        function validate()
+        {
+            var usern = document.getElementById('user').value;
+            var passw = document.getElementById('pass').value;
+            console.log(usern);
+            console.log(passw);
+            
+            if(usern == "admin" && passw == "p@ssword")
+                {
+                    window.open("dashboard.html", "_self");
+                }
+            else
+                alert('ERROR WHILE LOGGING IN...');
+        }
+    </script>
+</html>

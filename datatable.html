@@ -1,0 +1,124 @@
+<html>
+  <head>
+    <title>Krusty Krab Dashboard</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <meta content="utf-8" http-equiv="encoding"> 
+<!--      <link rel="stylesheet" href="table.css">-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />  
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script> 
+    <script type="text/javascript" src="https://cdn.datatables.net/r/bs-3.3.5/jqc-1.11.3,dt-1.10.8/datatables.min.js"></script> 
+    <!-- Main styles for this application-->
+    <link href="css/style.css" rel="stylesheet">
+    
+  </head>
+  <body class="app header-fixed sidebar-fixed aside-menu-fixed sidebar-lg-show">
+    <header class="app-header navbar">
+        Krusty Krab Sales Database
+    </header>
+    <div class="app-body">
+      <div class="sidebar">
+        <nav class="sidebar-nav">
+          <ul class="nav">
+            <li class="nav-item">
+              <a class="nav-link">
+                <i class="nav-icon icon-speedometer"></i> Dashboard
+              </a>
+            </li>
+            <li class="nav-title">Components</li>
+            <li class="nav-item">
+              <a class="nav-link" href="datatable.html">
+                <i class="nav-icon icon-drop"></i> Table</a>
+            </li>
+             <li class="nav-item">
+              <a class="nav-link" href="dashboard.html">
+                <i class="nav-icon icon-pie-chart"></i> Charts</a>
+            </li>
+               <li class="nav-item">
+              <a class="nav-link" href="upload.html">
+                <i class="nav-icon icon-pie-chart"></i> Upload</a>
+            </li>
+               <li class="nav-item-logout">
+              <a class="nav-link" href="index.html">
+                <i class="nav-icon icon-pie-chart"></i> Logout</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+      <main class="main">
+          <div class="mismongtable">
+                    <h1 align="center"></h1><br />  
+                <h3 align="center"></h3><br />  
+                <table id="data-table" class="table table-bordered">  
+                     <thead>  
+                          <tr>  
+                               <th>DateTime</th>  
+                               <th>Burger</th>  
+                               <th>Species</th>  
+                          </tr>  
+                     </thead>  
+                </table>
+          </div>
+      </main>
+      <aside class="aside-menu">
+        <ul class="nav nav-tabs" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" href="#timeline" role="tab">
+              <i class="icon-list"></i>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#messages" role="tab">
+              <i class="icon-speech"></i>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#settings" role="tab">
+              <i class="icon-settings"></i>
+            </a>
+          </li>
+        </ul>
+        
+      </aside>
+    </div>
+    <footer class="app-footer">
+      <div>
+        <a>Krusty Krab</a>
+      </div>
+      <div class="ml-auto">
+        <span>Powered by</span>
+        <a>CHUA X LANDRITO</a>
+      </div>
+    </footer>
+    <script src="node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="node_modules/popper.js/dist/umd/popper.min.js"></script>
+    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="node_modules/pace-progress/pace.min.js"></script>
+    <script src="node_modules/perfect-scrollbar/dist/perfect-scrollbar.min.js"></script>
+    <script src="node_modules/@coreui/coreui/dist/js/coreui.min.js"></script>
+    <!-- Plugins and scripts required by this view-->
+    <script src="node_modules/chart.js/dist/Chart.min.js"></script>
+    <script src="node_modules/@coreui/coreui-plugin-chartjs-custom-tooltips/dist/js/custom-tooltips.min.js"></script>
+    <script src="js/charts.js"></script>
+  </body>
+</html>
+<script>  
+ $(document).ready(function(){  
+      $('#data-table').DataTable({  
+           "ajax" :     
+//          "krustykrab_array.json" https://api.npoint.io/8f849f5dc338b6648648 ,  
+          {
+               "url" : "https://api.npoint.io/8f849f5dc338b6648648",
+               "dataSrc" : "sales"
+           },
+           "columns"     :     [  
+                {     "data"     :     "datetime"     },  
+                {     "data"     :     "burger"},  
+                {     "data"     :     "species"}  
+           ]  
+      });  
+ });  
+ </script>  
+            
+ 
